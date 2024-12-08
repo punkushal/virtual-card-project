@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = '/';
@@ -19,12 +20,15 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
-        onPressed: () {},
+        onPressed: () {
+          context.goNamed('scan');
+        },
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(
-        padding: const EdgeInsets.all(0),
+        padding: EdgeInsets.zero,
         notchMargin: 10,
+        shape: const CircularNotchedRectangle(),
         clipBehavior: Clip.antiAlias,
         child: BottomNavigationBar(
           backgroundColor: Colors.green.shade300,
