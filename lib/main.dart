@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:virtual_card/pages/home_page.dart';
+import 'package:virtual_card/pages/scan_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,6 +17,15 @@ class MyApp extends StatelessWidget {
         name: HomePage.routeName,
         path: HomePage.routeName,
         builder: (context, state) => const HomePage(),
+
+        //Nesting route from home page to scan page
+        routes: [
+          GoRoute(
+            name: ScanPage.routeName,
+            path: ScanPage.routeName,
+            builder: (context, state) => const ScanPage(),
+          ),
+        ],
       ),
     ],
   );
