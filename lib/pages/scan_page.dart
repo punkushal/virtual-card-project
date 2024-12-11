@@ -14,6 +14,7 @@ class ScanPage extends StatefulWidget {
 }
 
 class _ScanPageState extends State<ScanPage> {
+  List<String> textLines = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +42,15 @@ class _ScanPageState extends State<ScanPage> {
               ),
             ],
           ),
+
+          //For Displaying Extracted Texts From Image
+          Wrap(
+            children: textLines
+                .map(
+                  (line) => LineItem(line: line),
+                )
+                .toList(),
+          )
         ],
       ),
     );
@@ -67,6 +77,38 @@ class _ScanPageState extends State<ScanPage> {
           tempList.add(line.text);
         }
       }
+      setState(() {
+        textLines = tempList;
+      });
     }
+  }
+}
+
+class LineItem extends StatelessWidget {
+  final String line;
+  const LineItem({super.key, required this.line});
+
+  @override
+  Widget build(BuildContext context) {
+    return LongPressDraggable(
+      data: line,
+      feedback: Container(
+        //Unique key for each draggable feedback
+        key: GlobalKey(),
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+            color: Colors.black54, borderRadius: BorderRadius.circular(8)),
+        child: Text(
+          line,
+          style: const TextStyle(color: Colors.white),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Chip(
+          label: Text(line),
+        ),
+      ),
+    );
   }
 }
