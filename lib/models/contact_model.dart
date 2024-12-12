@@ -11,7 +11,7 @@ class ContactModel {
   bool favorite;
 
   ContactModel({
-    this.id = 1,
+    this.id = -1,
     required this.name,
     required this.mobile,
     this.address = '',
