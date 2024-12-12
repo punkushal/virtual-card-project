@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
+import 'package:virtual_card/models/contact_model.dart';
+import 'package:virtual_card/pages/form_page.dart';
 import 'package:virtual_card/pages/home_page.dart';
 import 'package:virtual_card/pages/scan_page.dart';
 
@@ -25,6 +27,16 @@ class MyApp extends StatelessWidget {
             name: ScanPage.routeName,
             path: ScanPage.routeName,
             builder: (context, state) => const ScanPage(),
+
+            //Nesting route from scan page to form page
+            routes: [
+              GoRoute(
+                name: FormPage.routeName,
+                path: FormPage.routeName,
+                builder: (context, state) =>
+                    FormPage(contactModel: state.extra as ContactModel),
+              ),
+            ],
           ),
         ],
       ),
