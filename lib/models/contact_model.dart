@@ -7,6 +7,7 @@ class ContactModel {
   String address;
   String imageUrl;
   String designation;
+  String website;
   bool favorite;
 
   ContactModel({
@@ -18,6 +19,7 @@ class ContactModel {
     this.designation = '',
     this.email = '',
     this.imageUrl = '',
+    this.website = '',
     this.favorite = false,
   });
 }
