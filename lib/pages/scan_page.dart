@@ -17,11 +17,25 @@ class ScanPage extends StatefulWidget {
 class _ScanPageState extends State<ScanPage> {
   List<String> textLines = [];
   bool isScanOver = false;
+  String name = '',
+      company = '',
+      mobile = '',
+      email = '',
+      designation = '',
+      address = '',
+      website = '',
+      imageUrl = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Scan Page'),
+        actions: [
+          IconButton(
+            onPressed: imageUrl.isEmpty ? null : () {},
+            icon: const Icon(Icons.navigate_next),
+          ),
+        ],
       ),
       body: ListView(
         children: [
@@ -71,6 +85,9 @@ class _ScanPageState extends State<ScanPage> {
                     DropTargetItem(
                         property: ContactProperties.mobile,
                         onDrop: getDropItem),
+                    DropTargetItem(
+                        property: ContactProperties.website,
+                        onDrop: getDropItem),
                   ],
                 ),
               ),
@@ -93,6 +110,9 @@ class _ScanPageState extends State<ScanPage> {
     final picker = ImagePicker();
     final xFile = await picker.pickImage(source: camera);
     if (xFile != null) {
+      setState(() {
+        imageUrl = xFile.path;
+      });
       EasyLoading.show(
         status: 'Loading file....',
       );
@@ -117,7 +137,31 @@ class _ScanPageState extends State<ScanPage> {
     }
   }
 
-  getDropItem(String property, String value) {}
+  getDropItem(String property, String value) {
+    switch (property) {
+      case ContactProperties.company:
+        company = value;
+        break;
+      case ContactProperties.mobile:
+        mobile = value;
+        break;
+      case ContactProperties.address:
+        address = value;
+        break;
+      case ContactProperties.email:
+        email = value;
+        break;
+      case ContactProperties.name:
+        name = value;
+        break;
+      case ContactProperties.website:
+        website = value;
+        break;
+      case ContactProperties.designation:
+        designation = value;
+        break;
+    }
+  }
 }
 
 class LineItem extends StatelessWidget {
