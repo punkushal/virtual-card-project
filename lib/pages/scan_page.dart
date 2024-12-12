@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:virtual_card/models/contact_model.dart';
 import 'package:virtual_card/utils/constants.dart';
 
 class ScanPage extends StatefulWidget {
@@ -25,6 +27,20 @@ class _ScanPageState extends State<ScanPage> {
       address = '',
       website = '',
       imageUrl = '';
+
+  void createContact() {
+    final contact = ContactModel(
+      name: name,
+      mobile: mobile,
+      company: company,
+      address: address,
+      email: email,
+      website: website,
+      imageUrl: imageUrl,
+    );
+    context.goNamed('form', extra: contact);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +48,7 @@ class _ScanPageState extends State<ScanPage> {
         title: const Text('Scan Page'),
         actions: [
           IconButton(
-            onPressed: imageUrl.isEmpty ? null : () {},
+            onPressed: imageUrl.isEmpty ? null : createContact,
             icon: const Icon(Icons.navigate_next),
           ),
         ],
@@ -251,11 +267,14 @@ class _DropTargetItemState extends State<DropTargetItem> {
                 ),
               ),
               onAcceptWithDetails: (data) {
-                if (dropItem.isEmpty) {
-                  dropItem = data.data as String;
-                } else {
-                  dropItem += ' ${data.data as String}';
-                }
+                setState(() {
+                  if (dropItem.isEmpty) {
+                    dropItem = data.data as String;
+                  } else {
+                    dropItem += ' ${data.data as String}';
+                  }
+                });
+                widget.onDrop(widget.property, dropItem);
               },
             ),
           ),
