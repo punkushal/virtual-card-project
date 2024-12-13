@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:virtual_card/models/contact_model.dart';
+import 'package:virtual_card/pages/home_page.dart';
+import 'package:virtual_card/providers/contact_provider.dart';
 import 'package:virtual_card/utils/constants.dart';
+import 'package:virtual_card/utils/helper_function.dart';
 import 'package:virtual_card/widgets/app_txt_form_field.dart';
 
 class FormPage extends StatefulWidget {
@@ -58,6 +63,18 @@ class _FormPageState extends State<FormPage> {
       widget.contactModel.designation = designationController.text;
       widget.contactModel.mobile = mobileController.text;
     }
+    Provider.of<ContactProvider>(context, listen: false)
+        .insertContact(widget.contactModel)
+        .then((value) {
+      if (value > 0) {
+        // ignore: use_build_context_synchronously
+        showMsg(context, 'saved');
+      }
+    }).catchError((error) {
+      // ignore: use_build_context_synchronously
+      showMsg(context, 'failed to save');
+    });
+    context.goNamed(HomePage.routeName);
   }
 
   @override
