@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:virtual_card/providers/contact_provider.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = '/';
@@ -11,6 +13,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
+  @override
+  void didChangeDependencies() {
+    Provider.of<ContactProvider>(context, listen: false).getAllContactList();
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +59,19 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
+      ),
+      body: Consumer<ContactProvider>(
+        builder: (context, provider, child) => ListView.builder(
+            itemCount: provider.allContactList.length,
+            itemBuilder: (ctx, index) {
+              final contact = provider.allContactList;
+              return ListTile(
+                title: Text(contact[index].name),
+                trailing: Icon(contact[index].favorite
+                    ? Icons.favorite
+                    : Icons.favorite_border),
+              );
+            }),
       ),
     );
   }
