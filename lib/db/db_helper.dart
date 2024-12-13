@@ -31,4 +31,19 @@ class DbHelper {
       },
     );
   }
+
+  //While inserting contact in the database it will return id value
+  Future<int> insertContact(ContactModel contactModel) async {
+    final db = await _open();
+    return db.insert(tblContact, contactModel.toMap());
+  }
+
+  Future<List<ContactModel>> getAllContacts() async {
+    final db = await _open();
+    final mapList = await db.query(tblContact);
+    return List.generate(
+      mapList.length,
+      (index) => ContactModel.fromMap(mapList[index]),
+    );
+  }
 }
