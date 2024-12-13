@@ -8,6 +8,7 @@ class DbHelper {
   $tblCtcColCompany text,
   $tblCtcColName text,
   $tblCtcColAddress text,
+  $tblCtcColMobile text,
   $tblCtcColEmail text,
   $tblCtcColDesignation text,
   $tblCtcColWebsite text,
@@ -35,7 +36,15 @@ class DbHelper {
   //While inserting contact in the database it will return id value
   Future<int> insertContact(ContactModel contactModel) async {
     final db = await _open();
-    return db.insert(tblContact, contactModel.toMap());
+    final id = await db.insert(
+      tblContact,
+      contactModel.toMap(),
+    );
+
+    if (id == 0) {
+      contactModel.id = id;
+    }
+    return id;
   }
 
   Future<List<ContactModel>> getAllContacts() async {
