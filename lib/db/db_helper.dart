@@ -51,4 +51,10 @@ class DbHelper {
       (index) => ContactModel.fromMap(mapList[index]),
     );
   }
+
+  //To deleted contact from the database
+  Future<int> deleteContact(int id) async {
+    final db = await _open();
+    return db.delete(tblContact, where: '$tblCtcColId = ? ', whereArgs: [id]);
+  }
 }
