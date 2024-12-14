@@ -21,6 +21,12 @@ class ContactProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //To fetch all the contactlists from db
+  Future<void> getAllFavoriteContactList() async {
+    allContactList = await db.getAllFavoriteContacts();
+    notifyListeners();
+  }
+
   //To delete particular contact by providing it's id
   Future<int> deleteContact(int id) async {
     //We're not refreshing as earlier in above insertContact
