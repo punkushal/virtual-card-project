@@ -85,11 +85,17 @@ class _HomePageState extends State<HomePage> {
                   provider.deleteContact(contact[index].id);
                 },
                 child: ListTile(
-                  title: Text(contact[index].name),
-                  trailing: Icon(contact[index].favorite
-                      ? Icons.favorite
-                      : Icons.favorite_border),
-                ),
+                    title: Text(contact[index].name),
+                    trailing: IconButton(
+                      onPressed: () {
+                        provider.updateFavoriteContact(contact[index]);
+                      },
+                      icon: Icon(
+                        contact[index].favorite
+                            ? Icons.favorite
+                            : Icons.favorite_outline,
+                      ),
+                    )),
               );
             }),
       ),
