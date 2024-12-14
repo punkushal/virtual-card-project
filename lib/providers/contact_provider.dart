@@ -27,4 +27,14 @@ class ContactProvider extends ChangeNotifier {
     //because we are going to use dissmissle widget
     return db.deleteContact(id);
   }
+
+  //To update contact as favorite or not
+  Future<void> updateFavoriteContact(ContactModel contactModel) async {
+    //toggeling between value in favorite column field
+    final value = contactModel.favorite ? 0 : 1;
+    db.updateFavorite(contactModel.id, value);
+    final index = allContactList.indexOf(contactModel);
+    allContactList[index].favorite = !allContactList[index].favorite;
+    notifyListeners();
+  }
 }
