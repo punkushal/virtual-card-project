@@ -52,6 +52,16 @@ class DbHelper {
     );
   }
 
+  Future<List<ContactModel>> getAllFavoriteContacts() async {
+    final db = await _open();
+    final mapList = await db
+        .query(tblContact, where: '$tblCtcColFavorite = ? ', whereArgs: [1]);
+    return List.generate(
+      mapList.length,
+      (index) => ContactModel.fromMap(mapList[index]),
+    );
+  }
+
   //To deleted contact from the database
   Future<int> deleteContact(int id) async {
     final db = await _open();
