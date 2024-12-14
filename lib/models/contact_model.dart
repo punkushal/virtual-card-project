@@ -63,6 +63,7 @@ class ContactModel {
 
   //To Convert From Map To Contact Model
   factory ContactModel.fromMap(Map<String, dynamic> map) => ContactModel(
+        id: map[tblCtcColId],
         name: map[tblCtcColName],
         mobile: map[tblCtcColMobile],
         company: map[tblCtcColCompany],
