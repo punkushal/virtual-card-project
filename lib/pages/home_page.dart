@@ -65,13 +65,50 @@ class _HomePageState extends State<HomePage> {
             itemCount: provider.allContactList.length,
             itemBuilder: (ctx, index) {
               final contact = provider.allContactList;
-              return ListTile(
-                title: Text(contact[index].name),
-                trailing: Icon(contact[index].favorite
-                    ? Icons.favorite
-                    : Icons.favorite_border),
+              return Dismissible(
+                key: UniqueKey(),
+                direction: DismissDirection.endToStart,
+                confirmDismiss: (direction) => getConfirmation(direction),
+                child: ListTile(
+                  title: Text(contact[index].name),
+                  trailing: Icon(contact[index].favorite
+                      ? Icons.favorite
+                      : Icons.favorite_border),
+                ),
               );
             }),
+      ),
+    );
+  }
+
+  Future<bool?> getConfirmation(direction) {
+    return showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Delete Contact'),
+        content: const Text('Are you sure to delete this contact?'),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              OutlinedButton(
+                onPressed: () {
+                  context.pop(false);
+                },
+                child: const Text('No'),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  context.pop(true);
+                },
+                child: const Text('Yes'),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
