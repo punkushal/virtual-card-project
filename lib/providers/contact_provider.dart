@@ -20,4 +20,11 @@ class ContactProvider extends ChangeNotifier {
     allContactList = await db.getAllContacts();
     notifyListeners();
   }
+
+  //To delete particular contact by providing it's id
+  Future<int> deleteContact(int id) async {
+    //We're not refreshing as earlier in above insertContact
+    //because we are going to use dissmissle widget
+    return db.deleteContact(id);
+  }
 }
