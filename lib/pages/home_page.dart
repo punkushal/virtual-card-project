@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
             setState(() {
               selectedIndex = value;
             });
+            _fetchData();
           },
           currentIndex: selectedIndex,
           selectedItemColor: Colors.blue,
@@ -132,5 +133,18 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  void _fetchData() {
+    switch (selectedIndex) {
+      case 0:
+        Provider.of<ContactProvider>(context, listen: false)
+            .getAllContactList();
+        break;
+      case 1:
+        Provider.of<ContactProvider>(context, listen: false)
+            .getAllFavoriteContactList();
+        break;
+    }
   }
 }
