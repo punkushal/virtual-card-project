@@ -67,8 +67,23 @@ class _HomePageState extends State<HomePage> {
               final contact = provider.allContactList;
               return Dismissible(
                 key: UniqueKey(),
+
+                //While swipping showing red color bg with delete icon
+                background: Container(
+                  padding: const EdgeInsets.only(right: 10),
+                  alignment: Alignment.centerRight,
+                  color: Colors.red,
+                  child: const Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                    size: 25,
+                  ),
+                ),
                 direction: DismissDirection.endToStart,
                 confirmDismiss: (direction) => getConfirmation(direction),
+                onDismissed: (direction) {
+                  provider.deleteContact(contact[index].id);
+                },
                 child: ListTile(
                   title: Text(contact[index].name),
                   trailing: Icon(contact[index].favorite
