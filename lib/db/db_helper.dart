@@ -40,10 +40,6 @@ class DbHelper {
       tblContact,
       contactModel.toMap(),
     );
-
-    if (id == 0) {
-      contactModel.id = id;
-    }
     return id;
   }
 
