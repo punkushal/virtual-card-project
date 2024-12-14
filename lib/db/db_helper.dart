@@ -57,4 +57,11 @@ class DbHelper {
     final db = await _open();
     return db.delete(tblContact, where: '$tblCtcColId = ? ', whereArgs: [id]);
   }
+
+  //To update contact field
+  Future<int> updateFavorite(int id, int value) async {
+    final db = await _open();
+    return await db.update(tblContact, {tblCtcColFavorite: value},
+        where: '$tblCtcColId = ? ', whereArgs: [id]);
+  }
 }
