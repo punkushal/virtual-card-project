@@ -86,6 +86,8 @@ class _HomePageState extends State<HomePage> {
                   provider.deleteContact(contact[index].id);
                 },
                 child: ListTile(
+                    onTap: () =>
+                        context.goNamed('contact', extra: contact[index].id),
                     title: Text(contact[index].name),
                     trailing: IconButton(
                       onPressed: () {
