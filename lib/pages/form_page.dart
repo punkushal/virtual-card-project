@@ -180,7 +180,7 @@ class _FormPageState extends State<FormPage> {
                 horizontal: 12,
                 radiusValue: 8,
                 labelText: 'Contact Address',
-                controller: nameController,
+                controller: addressController,
                 prefixIcon: const Icon(Icons.location_on),
                 validator: (value) {
                   return null;
