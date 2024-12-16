@@ -120,6 +120,7 @@ class _FormPageState extends State<FormPage> {
               ),
 
               //Input Field For mobile
+              //Input Field For mobile
               AppTxtFormField(
                 vertical: 8,
                 horizontal: 12,
@@ -131,6 +132,21 @@ class _FormPageState extends State<FormPage> {
                   if (value == null || value.isEmpty) {
                     return errorMsg;
                   }
+                  // Remove non-numeric characters
+                  value = value.replaceAll(RegExp(r'\D'), '');
+
+                  // Remove leading zeros
+                  while (value!.startsWith('0')) {
+                    value = value.substring(1);
+                  }
+
+                  // Ensure the number starts with the country code
+                  if (!value.startsWith('977')) {
+                    mobileController.text = '+977$value';
+                  } else {
+                    mobileController.text = value;
+                  }
+
                   return null;
                 },
               ),
