@@ -70,6 +70,23 @@ class _ContactPageDetailsState extends State<ContactPageDetails> {
                         ),
                       ],
                     ),
+                  ),
+                  ListTile(
+                    leading: Text(
+                      contact.website,
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            openBrowser(contact.website);
+                          },
+                          icon: const Icon(Icons.web_outlined),
+                        ),
+                      ],
+                    ),
                   )
                 ],
               );
@@ -104,6 +121,14 @@ class _ContactPageDetailsState extends State<ContactPageDetails> {
     } else {
       // ignore: use_build_context_synchronously
       showMsg(context, 'cannot perform this task');
+    }
+  }
+
+  void openBrowser(String url) async {
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url, mode: LaunchMode.externalApplication);
+    } else {
+      debugPrint("Could not launch $url");
     }
   }
 }
