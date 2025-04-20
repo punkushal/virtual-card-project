@@ -34,8 +34,3 @@ A Flutter application to manage and interact with visiting cards effectively. Th
 - **Local Storage:** To persist data using solutions like SQLite, Hive, or SharedPreferences.
 - **OCR Library:** For text recognition (e.g., Google ML Kit).
 - **URL Launcher:** To handle phone, SMS, email, and browser actions.
-
-## 🖼️ Video Recording 
-
-Add screenshots or GIFs of your app here to showcase its UI and functionality.
-
